@@ -1,6 +1,8 @@
 <template>
   <header>
-    <nav>NAVBAR</nav>
+    <h1 class="py-10 text-center">
+      TITEL EN SEARCH ICON
+    </h1>
   </header>
 </template>
 

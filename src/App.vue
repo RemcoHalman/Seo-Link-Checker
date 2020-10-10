@@ -1,29 +1,23 @@
 <template>
   <Header />
+  <LinkInput />
   <Footer />
 </template>
 
 <script>
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
+import LinkInput from "./components/LinkInput.vue";
 
 export default {
   name: "App",
-  title: "Seo Link Status Checker",
+  title: "Link Status Checker",
   components: {
     Header,
     Footer,
+    LinkInput,
   },
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
