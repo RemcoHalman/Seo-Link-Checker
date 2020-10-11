@@ -40,8 +40,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "LinkStatus",
   props: ["url"],
@@ -68,16 +66,6 @@ export default {
         },
       ],
     };
-  },
-  mounted() {
-    axios
-      .post(this.url)
-      .then(function(response) {
-        alert(response.data);
-      })
-      .catch(function(error) {
-        alert(error);
-      });
   },
 };
 </script>
