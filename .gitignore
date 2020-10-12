@@ -1,7 +1,18 @@
 .DS_Store
+tree.txt
+.git
+
+# Backend
+venv
+.env
+## compiled sources
+__pycache__/
+*.py[cod]
+*py.class
+
+# Frontend
 node_modules
 /dist
-
 
 # local env files
 .env.local
@@ -21,3 +32,15 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Databases 
+*.sql
+*.sqlite
+*.sqlite3
