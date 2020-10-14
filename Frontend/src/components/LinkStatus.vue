@@ -25,11 +25,14 @@
                 class="w-1/3 px-6 py-4 whitespace-no-wrap border-b border-gray-200"
               >
                 <span
-                  :class="url.ok ? succes : failure"
+                  :class="url.redirected ? succes : failure"
                   class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
                 >
-                  <span v-if="url.ok">Active</span>
-                  <span v-else>Not active</span>
+                  <span v-if="url.redirected && url.ok">Active</span>
+                  <span v-else-if="url.ok && !url.redirected"
+                    >Link found but not active</span
+                  >
+                  <span v-else>No link found</span>
                 </span>
               </td>
             </tr>
@@ -48,22 +51,20 @@ export default {
     return {
       succes: "bg-green-800 text-green-200",
       failure: "bg-red-800 text-red-200",
-      data: {},
-      urls: [""],
-      mountains: [],
+      data: [],
+      urls: ["", "/GetUrl/RemcoHalman"],
     };
   },
   async mounted() {
+    // WORKING
     const requests = [];
     this.urls.forEach((url) =>
       requests.push(fetch(`http://localhost:5000/api/v1/${url}`))
     );
     const data = await Promise.all(requests);
+    // console.log(data);
     this.urls = await Promise.all(data.map((url) => url));
+    // console.log(this.urls);
   },
 };
-
-// .then((url) => {
-//   console.log(url);
-// })
 </script>
