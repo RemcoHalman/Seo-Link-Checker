@@ -9,14 +9,14 @@
         </h2>
         <table class="min-w-full">
           <tbody class="bg-white">
-            <tr v-for="item in urls" :key="item">
+            <tr v-for="url in urls" :key="url">
               <td
                 class="w-2/3 px-6 py-4 whitespace-no-wrap border-b border-gray-200"
               >
                 <div class="flex items-center">
                   <div class="ml-4">
                     <div class="text-sm leading-5 font-medium text-gray-900">
-                      {{ item.url }}
+                      {{ url.url }}
                     </div>
                   </div>
                 </div>
@@ -25,10 +25,11 @@
                 class="w-1/3 px-6 py-4 whitespace-no-wrap border-b border-gray-200"
               >
                 <span
-                  :class="item.status === '200' ? succes : failure"
+                  :class="url.ok ? succes : failure"
                   class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
                 >
-                  {{ item.status }}
+                  <span v-if="url.ok">Active</span>
+                  <span v-else>Not active</span>
                 </span>
               </td>
             </tr>
@@ -47,25 +48,22 @@ export default {
     return {
       succes: "bg-green-800 text-green-200",
       failure: "bg-red-800 text-red-200",
-      urls: [
-        {
-          url: "test",
-          status: "200",
-        },
-        {
-          url: "test 2",
-          status: "400",
-        },
-        {
-          url: "test 3",
-          status: "404",
-        },
-        {
-          url: "test 4",
-          status: "500",
-        },
-      ],
+      data: {},
+      urls: [""],
+      mountains: [],
     };
   },
+  async mounted() {
+    const requests = [];
+    this.urls.forEach((url) =>
+      requests.push(fetch(`http://localhost:5000/api/v1/${url}`))
+    );
+    const data = await Promise.all(requests);
+    this.urls = await Promise.all(data.map((url) => url));
+  },
 };
+
+// .then((url) => {
+//   console.log(url);
+// })
 </script>

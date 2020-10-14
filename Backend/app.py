@@ -1,15 +1,23 @@
 import os
-
 from dotenv import load_dotenv
-from flask import Flask, jsonify, render_template, redirect
 
-import views
+from flask import Flask
+from flask_cors import CORS
+from flask_restful import Resource, Api
 
-app = Flask(__name__)
 load_dotenv()
 
-# URL ROUTING
-app.add_url_rule('/', view_func=views.home)
+app = Flask(__name__)
+api = Api(app)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-if __name__ == "__main__":
+API_PATH = "/api/v1"
+
+class HelloWorld(Resource):
+    def get(self):
+        return {'hello': 'world'}
+
+api.add_resource(HelloWorld, f'{API_PATH}/')
+
+if __name__ == '__main__':
     app.run(debug=os.getenv("DEBUG"))
