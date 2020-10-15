@@ -4,19 +4,19 @@
       <div
         class="inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
       >
-        <h2 class="text-2xl text-center py-2" v-if="url">
-          Searching on: {{ url }}
+        <h2 class="text-2xl text-center py-2" v-if="data">
+          Searching on: {{ data.link }}
         </h2>
         <table class="min-w-full">
           <tbody class="bg-white">
-            <tr v-for="url in urls" :key="url">
+            <tr>
               <td
                 class="w-2/3 px-6 py-4 whitespace-no-wrap border-b border-gray-200"
               >
                 <div class="flex items-center">
                   <div class="ml-4">
                     <div class="text-sm leading-5 font-medium text-gray-900">
-                      {{ url.url }}
+                      {{ data.link }}
                     </div>
                   </div>
                 </div>
@@ -25,13 +25,10 @@
                 class="w-1/3 px-6 py-4 whitespace-no-wrap border-b border-gray-200"
               >
                 <span
-                  :class="url.redirected ? succes : failure"
+                  :class="data.status_code === 200 ? succes : failure"
                   class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
                 >
-                  <span v-if="url.redirected && url.ok">Active</span>
-                  <span v-else-if="url.ok && !url.redirected"
-                    >Link found but not active</span
-                  >
+                  <span v-if="data.status_code === 200">Active</span>
                   <span v-else>No link found</span>
                 </span>
               </td>
@@ -46,25 +43,12 @@
 <script>
 export default {
   name: "LinkStatus",
-  props: ["url"],
+  props: ["data"],
   data() {
     return {
       succes: "bg-green-800 text-green-200",
       failure: "bg-red-800 text-red-200",
-      data: [],
-      urls: ["", "/GetUrl/RemcoHalman"],
     };
-  },
-  async mounted() {
-    // WORKING
-    const requests = [];
-    this.urls.forEach((url) =>
-      requests.push(fetch(`http://localhost:5000/api/v1/${url}`))
-    );
-    const data = await Promise.all(requests);
-    // console.log(data);
-    this.urls = await Promise.all(data.map((url) => url));
-    // console.log(this.urls);
   },
 };
 </script>

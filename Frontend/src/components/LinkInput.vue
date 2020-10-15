@@ -8,23 +8,24 @@
               <div
                 class="flex w-full items-center border-b border-teal-500 py-2"
               >
-                <input
-                  class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                  type="text"
-                  id="url"
-                  placeholder="https://www.example.com"
-                  v-model="passURL"
-                />
-                <button
-                  class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
-                  type="button"
-                  @click="getUrl(passURL)"
-                >
-                  Search page
-                </button>
+                <form @submit.prevent="submit">
+                  <input
+                    class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                    type="text"
+                    id="url"
+                    placeholder="https://www.example.com"
+                    v-model="url"
+                  />
+                  <button
+                    class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+                    type="submit"
+                  >
+                    Search page
+                  </button>
+                </form>
               </div>
             </div>
-            <LinkStatus :url="this.url" />
+            <LinkStatus :data="this.data" />
           </div>
         </main>
       </div>
@@ -34,6 +35,7 @@
 
 <script>
 import LinkStatus from "./LinkStatus.vue";
+import axios from "axios";
 
 export default {
   name: "LinkInput",
@@ -44,11 +46,27 @@ export default {
     return {
       passURL: "",
       url: "",
+      data: {},
     };
   },
   methods: {
-    getUrl(value) {
-      this.url = value;
+    submit() {
+      this.search = this.url.split(".");
+      console.log(this.search[1]);
+      axios
+        .get(
+          `http://localhost:5000/api/v1/${this.search[1]}/${this.search[2]}`,
+          {
+            name: this.search[1],
+          }
+        )
+        .then((res) => {
+          this.data = res.data;
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

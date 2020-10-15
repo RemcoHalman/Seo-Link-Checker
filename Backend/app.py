@@ -16,15 +16,20 @@ api_path = "api/v1"
 
 class  GetUrl(Resource):
     def get(self, url):
-        url = f"https://api.github.com/users/{url}"
-        r = requests.get(url)
-        status = {'link': url, 'status_code': r.status_code}
-        # return r.json()
-        return status
+        try:
+            url = f"https://api.github.com/users/{url}"
+            r = requests.get(url)
+            status = {'response': r.json(),'link': url, 'status_code': r.status_code}
+            # return r.json()
+            return status
+        except Exception as e:
+            return e
 
 api.add_resource(GetUrl, 
-                f'/{api_path}/GetUrl/',
-                f'/{api_path}/GetUrl/<string:url>/')
+                f'/{api_path}/',
+                f'/{api_path}/<string:url>/')
+
+
 
 if __name__ == '__main__':
     app.run(debug=os.getenv("DEBUG"))
