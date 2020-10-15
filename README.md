@@ -28,9 +28,9 @@ pip install -r ../requirements.txt
 python app.py
 ```
 
+### Frontend View
 
-
-
+![Frontend](https://user-images.githubusercontent.com/25010775/96105173-071e0780-0eda-11eb-84bf-ce90eee90d45.jpg)
 
 ## Project Tree
 
