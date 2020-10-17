@@ -52,10 +52,9 @@ export default {
   methods: {
     submit() {
       this.search = this.url.split(".");
-      console.log(this.search[1]);
       axios
         .get(
-          `http://localhost:5000/api/v1/${this.search[1]}/${this.search[2]}`,
+          `http://localhost:3201/api/v1/${this.search[1]}/${this.search[2]}`,
           {
             name: this.search[1],
           }

@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  api:
+    build: ./Backend
+    container_name: api
+    restart: always
+    volumes:
+      - ./Backend/:/app/api/
+    ports:
+      - "3201:3201"
+
+  ui:
+    build: ./Frontend
+    container_name: ui
+    restart: always
+    ports:
+      - "3200:8080"

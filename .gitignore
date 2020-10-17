@@ -5,6 +5,10 @@ tree.txt
 # Backend
 venv
 .env
+## Extra
+Makefile
+testinbs4*
+
 ## compiled sources
 __pycache__/
 *.py[cod]

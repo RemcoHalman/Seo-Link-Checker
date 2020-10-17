@@ -1,10 +1,12 @@
+import json
 import os
-from dotenv import load_dotenv
-import requests
 
+import requests
+from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
-from flask_restful import Resource, Api
+from flask_restful import Api, Resource
 
 load_dotenv()
 
@@ -14,22 +16,31 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 api_path = "api/v1"
 
-class  GetUrl(Resource):
-    def get(self, url):
-        try:
-            url = f"https://api.github.com/users/{url}"
-            r = requests.get(url)
-            status = {'response': r.json(),'link': url, 'status_code': r.status_code}
-            # return r.json()
-            return status
-        except Exception as e:
-            return e
+class ApiStatus(Resource):
+    def get(self):
+        return {'status': "Api is up and running"}
 
+class  GetUrl(Resource):
+    def get(self, url, extension):
+        try:
+            url = f"https://www.{url}.{extension}"
+            r = requests.get(url)
+            soup = BeautifulSoup(r.content, "html.parser")
+            links = soup.findAll('a')
+            if json.JSONDecodeError:
+                status = {'link': url, 'status_code': r.status_code}
+            else:
+                status = {'link': url, 'status_code': r.status_code, 'response': r.json()}
+            
+            return status
+        except json.JSONDecodeError:
+            pass 
+
+api.add_resource(ApiStatus, f'/{api_path}/')
 api.add_resource(GetUrl, 
-                f'/{api_path}/',
-                f'/{api_path}/<string:url>/')
+                f'/{api_path}/<string:url>/<string:extension>')
 
 
 
 if __name__ == '__main__':
-    app.run(debug=os.getenv("DEBUG"))
+    app.run(host=os.getenv("HOST"), port=os.getenv("PORT"), debug=os.getenv("DEBUG"))

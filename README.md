@@ -32,21 +32,27 @@ python app.py
 
 ![Frontend](https://user-images.githubusercontent.com/25010775/96105173-071e0780-0eda-11eb-84bf-ce90eee90d45.jpg)
 
+## Project installation
+
+open the terminal and navigate to the main folder `seo-link-checker` and run `docker-compose up --build`
+
 ## Project Tree
 
 ```bash
 .
 ├── Backend
+│   ├── Dockerfile
 │   ├── app.py
-│   ├── static
-│   │   ├── css
-│   │   │   └── main.css
-│   │   ├── js
-│   │   │   └── main.js
-│   │   └── scss
-│   │       └── main.scss
-│   └── views.py
+│   ├── requirements.txt
+│   └── static
+│       ├── css
+│       │   └── main.css
+│       ├── js
+│       │   └── main.js
+│       └── scss
+│           └── main.scss
 ├── Frontend
+│   ├── Dockerfile
 │   ├── babel.config.js
 │   ├── package-lock.json
 │   ├── package.json
@@ -68,8 +74,7 @@ python app.py
 │   │       └── titleMixin.js
 │   └── vue.config.js
 ├── README.md
-├── requirements.txt
-└── tree.txt
+└── docker-compose.yml
 
-11 directories, 23 files
+11 directories, 24 files
 ```

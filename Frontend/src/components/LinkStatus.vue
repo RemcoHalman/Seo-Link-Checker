@@ -3,10 +3,9 @@
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
       <div
         class="inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
+        v-if="Object.keys(data).length"
       >
-        <h2 class="text-2xl text-center py-2" v-if="data">
-          Searching on: {{ data.link }}
-        </h2>
+        <h2 class="text-2xl text-center py-2">Searching on: {{ data.link }}</h2>
         <table class="min-w-full">
           <tbody class="bg-white">
             <tr>
@@ -35,6 +34,11 @@
             </tr>
           </tbody>
         </table>
+        <p
+          class="w-full px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center"
+        >
+          This are all the links found
+        </p>
       </div>
     </div>
   </div>
