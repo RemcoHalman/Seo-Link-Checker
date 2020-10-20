@@ -1,11 +1,15 @@
 # SEO link status checker
 
+## Project installation
+
+open the terminal and navigate to the main folder `seo-link-checker` and run `docker-compose up --build`
+
 
 ## Installing locally
 
 The project is meant to run in a Docker container so that both the front and backend start and run at the same time. If you want to test it out locally it is a little more complicated to set up.
 
-#### Frontend installation
+#### Frontend installation (In development)
 Open a new terminal window. `cd` to the `Frontend` folder and run the following command
 
 ```
@@ -17,7 +21,7 @@ On completion and no errors run the next command to compile the project and sets
 npm run serve
 ```
 
-#### Backend installation
+#### Backend installation (MVP)
 
 Open a new terminal tab and `cd` to the `Backend` folder and run the following commands in order to run the API
 
@@ -31,10 +35,6 @@ python app.py
 ### Frontend View
 
 ![Frontend](https://user-images.githubusercontent.com/25010775/96105173-071e0780-0eda-11eb-84bf-ce90eee90d45.jpg)
-
-## Project installation
-
-open the terminal and navigate to the main folder `seo-link-checker` and run `docker-compose up --build`
 
 ## Project Tree
 
