@@ -6,34 +6,39 @@
         v-if="Object.keys(data).length"
       >
         <h2 class="text-2xl text-center py-2">Searching on: {{ data.link }}</h2>
-        <table class="min-w-full">
-          <tbody class="bg-white">
-            <tr>
-              <td
-                class="w-2/3 px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+        <div
+          id="links"
+          v-for="link in data.links"
+          :key="link.ID"
+          class="bg-white"
+        >
+          <div id="link" class="flex">
+            <span
+              class=" w-2/3 px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+              >{{ link }}</span
+            >
+            <span
+              id="status"
+              class="w-1/3 px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+            >
+              <span
+                v-if="link.includes('http') && link.status_code === 200"
+                :class="succes"
+                >Active</span
               >
-                <div class="flex items-center">
-                  <div class="ml-4">
-                    <div class="text-sm leading-5 font-medium text-gray-900">
-                      {{ data.link }}
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td
-                class="w-1/3 px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+              <span v-else-if="link.includes('#')" :class="succes"
+                >Internal Link</span
               >
-                <span
-                  :class="data.status_code === 200 ? succes : failure"
-                  class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
-                >
-                  <span v-if="data.status_code === 200">Active</span>
-                  <span v-else>No link found</span>
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              <span
+                v-else-if="link.includes('http') && link.status_code != 200"
+                :class="warning"
+                >Link found but no status</span
+              >
+              <span v-else :class="failure">This is not a link</span>
+            </span>
+          </div>
+        </div>
+
         <p
           class="w-full px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center"
         >
@@ -50,8 +55,12 @@ export default {
   props: ["data"],
   data() {
     return {
-      succes: "bg-green-800 text-green-200",
-      failure: "bg-red-800 text-red-200",
+      succes:
+        "bg-green-800 text-green-200 px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
+      warning:
+        "bg-yellow-800 text-yellow-200 px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
+      failure:
+        "bg-red-800 text-red-200 px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
     };
   },
 };
