@@ -16,6 +16,15 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 api_path = "api/v1"
 
+def statusChecker(url):
+    urls = []
+    r = requests.get(url)
+    soup = BeautifulSoup(r.content, "html.parser")
+    for link in soup.select('a'):
+        urls.append(link.get('href'))
+    filtered = list(filter(None, urls)) 
+    return filtered
+
 class ApiStatus(Resource):
     def get(self):
         return {'status': "Api is up and running"}
@@ -25,10 +34,9 @@ class  GetUrl(Resource):
         try:
             url = f"https://www.{url}.{extension}"
             r = requests.get(url)
-            soup = BeautifulSoup(r.content, "html.parser")
-            links = soup.findAll('a')
+            urls = statusChecker(url)
             if json.JSONDecodeError:
-                status = {'link': url, 'status_code': r.status_code}
+                status = {'link': url, 'status_code': r.status_code, 'links': urls }
             else:
                 status = {'link': url, 'status_code': r.status_code, 'response': r.json()}
             
