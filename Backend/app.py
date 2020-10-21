@@ -23,6 +23,7 @@ def statusChecker(url):
     for link in soup.select('a'):
         urls.append(link.get('href'))
     filtered = list(filter(None, urls)) 
+    filtered.sort()
     return filtered
 
 class ApiStatus(Resource):
