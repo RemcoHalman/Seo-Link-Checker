@@ -1,0 +1,30 @@
+on:
+    push:
+      # Sequence of patterns matched against refs/tags
+      tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    workflow_dispatch:
+      tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    
+  name: Create release
+  
+  jobs:
+    build-linux:
+      name: Create Release
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+        - name: Create Release  # Creates the release, assets will be added after building
+          id: create_release
+          uses: actions/create-release@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            tag_name: ${{ github.ref }}
+            release_name: Release ${{ github.ref }}
+            body: "SEO link checker release"  # release message, alternative to body_path
+            # body_path: release_text.md  # uncomment if not used
+            draft: false
+            prerelease: false
