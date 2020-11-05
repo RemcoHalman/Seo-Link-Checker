@@ -11,6 +11,8 @@ on:
   pull_request_review_comment:
     types: [created]
 
+name: Welcome message
+
 jobs:
   welcome:
     runs-on: ubuntu-latest
