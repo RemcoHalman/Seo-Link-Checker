@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api, Resource
+from requests.exceptions import ConnectionError
 
 load_dotenv()
 
@@ -40,10 +41,12 @@ class  GetUrl(Resource):
                 status = {'link': url, 'status_code': r.status_code, 'links': urls }
             else:
                 status = {'link': url, 'status_code': r.status_code, 'response': r.json()}
-            
             return status
-        except json.JSONDecodeError:
-            pass 
+        except ConnectionError:
+            return {'link': url, 'Status': "Url does not exist"}
+        else:
+            pass
+
 
 api.add_resource(ApiStatus, f'/{api_path}/')
 api.add_resource(GetUrl, 
