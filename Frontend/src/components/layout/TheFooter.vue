@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <footer>
     <h1 class="pt-10 pb-2 text-center text-gray-600">
       Created by: Remco Halman
     </h1>
@@ -14,7 +14,7 @@
     >
       <img :src="GithubIcon" class="mx-auto mt-1" alt="" />
     </a>
-  </div>
+  </footer>
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
   name: "Footer",
   data() {
     return {
-      GithubIcon: require("../assets/GitHub-Mark-32px.png"),
+      GithubIcon: require("../../assets/GitHub-Mark-32px.png"),
     };
   },
 };

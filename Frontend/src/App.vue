@@ -1,20 +1,22 @@
 <template>
-  <Header />
-  <LinkInput />
-  <Footer />
+  <div>
+    <TheHeader />
+    <LinkInput />
+    <TheFooter />
+  </div>
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
+import TheHeader from "./components/layout/TheHeader.vue";
+import TheFooter from "./components/layout/TheFooter.vue";
 import LinkInput from "./components/LinkInput.vue";
 
 export default {
   name: "App",
   title: "Link Status Checker",
   components: {
-    Header,
-    Footer,
+    TheHeader,
+    TheFooter,
     LinkInput,
   },
 };
