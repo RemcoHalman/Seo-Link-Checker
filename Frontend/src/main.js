@@ -2,6 +2,8 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import titleMixin from "./mixins/titleMixin";
 
-createApp(App)
-  .mixin(titleMixin)
-  .mount("#app");
+const app = createApp(App);
+
+app.mixin(titleMixin);
+
+app.mount("#app");

@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <TheHeader />
-    <LinkInput />
-    <TheFooter />
-  </div>
+  <the-header>Search and display</the-header>
+  <the-input></the-input>
+  <the-footer></the-footer>
 </template>
 
 <script>
 import TheHeader from "./components/layout/TheHeader.vue";
 import TheFooter from "./components/layout/TheFooter.vue";
-import LinkInput from "./components/LinkInput.vue";
+import TheInput from "./components/links/TheInput.vue";
 
 export default {
   name: "App",
@@ -17,8 +15,8 @@ export default {
   components: {
     TheHeader,
     TheFooter,
-    LinkInput,
-  },
+    TheInput
+  }
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1 class="py-10 text-center">
-      TITEL EN SEARCH ICON
+      <slot></slot>
     </h1>
   </header>
 </template>
@@ -11,6 +11,6 @@ export default {
   name: "Header",
   data() {
     return {};
-  },
+  }
 };
 </script>
