@@ -16,25 +16,38 @@
       </button>
     </form>
   </div>
+  <p v-if="isLoading">Loading ...</p>
+  <div v-if="linkData" class="flex flex-wrap">
+    <link-output
+      v-for="link in linkData.links"
+      :key="link"
+      :name="link"
+      status="200"
+      styling="failure"
+      class="flex w-full items-center border-b"
+    ></link-output>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
+import LinkOutput from "./LinkOutput.vue";
 
 export default {
-  components: {},
+  components: {
+    LinkOutput
+  },
   data() {
     return {
       url: "",
-      linkData: {
-        link: "https://www.example.com",
-        status_code: "200",
-        links: ""
-      }
+      linkData: null,
+      isLoading: false
     };
   },
   methods: {
     submit() {
+      this.isLoading = true;
+      this.linkData = null;
       this.search = this.url.split(".");
       axios
         .get(
@@ -44,20 +57,16 @@ export default {
           }
         )
         .then(res => {
-          this.linkData = res.data;
-          console.log(this.linkData.links);
+          const result = res.data;
+          console.log(result);
+          this.linkData = result;
+          // return result;
+          this.isLoading = false;
         })
         .catch(err => {
           console.log(err);
         });
     }
-  },
-  provide() {
-    return {
-      dataUrl: this.linkData.url,
-      dataStatus: this.linkData.status_code,
-      dataLinks: this.linkData.links
-    };
   }
 };
 </script>

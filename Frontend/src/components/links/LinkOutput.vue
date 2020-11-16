@@ -1,7 +1,7 @@
 <template>
   <div class="flex w-full items-center border-b">
-    <link-name>Link name</link-name>
-    <link-status styling="failure">Test</link-status>
+    <link-name>{{ name }}</link-name>
+    <link-status :styling="styling">{{ status }}</link-status>
   </div>
 </template>
 
@@ -10,6 +10,7 @@ import LinkStatus from "./LinkStatus.vue";
 import LinkName from "./LinkName.vue";
 
 export default {
+  props: ["name", "status", "styling"],
   name: "LinkOutput",
   components: {
     LinkStatus,

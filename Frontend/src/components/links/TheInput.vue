@@ -6,7 +6,6 @@
           <div class="container mx-auto px-6 py-8">
             <div class="flex flex-wrap">
               <link-form></link-form>
-              <link-output></link-output>
             </div>
           </div>
         </main>
@@ -17,13 +16,12 @@
 
 <script>
 import LinkForm from "./LinkForm.vue";
-import LinkOutput from "./LinkOutput.vue";
 
 export default {
   name: "Link Display",
   components: {
-    LinkForm,
-    LinkOutput
-  }
+    LinkForm
+  },
+  props: ["data"]
 };
 </script>
