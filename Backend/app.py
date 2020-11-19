@@ -38,7 +38,11 @@ class  GetUrl(Resource):
             r = requests.get(url)
             urls = statusChecker(url)
             if json.JSONDecodeError:
-                status = {'link': url, 'status_code': r.status_code, 'links': urls }
+                status = {
+                    'link': url, 
+                    'status_code': r.status_code, 
+                    'links': urls
+                    }
             else:
                 status = {'link': url, 'status_code': r.status_code, 'response': r.json()}
             return status
